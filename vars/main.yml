@@ -1,0 +1,12 @@
+---
+# vars file for duckdb
+duckdb_os: '{{ duckdb_os_map[ansible_system] }}'
+duckdb_arch: '{{ duckdb_arch_map[ansible_architecture] }}'
+duckdb_platform: '{{ duckdb_os }}-{{ duckdb_arch }}'
+duckdb_checksum: '{{ duckdb_checksums[duckdb_ver][duckdb_platform] }}'
+duckdb_url: '{{ duckdb_mirror }}/v{{ duckdb_ver }}/duckdb_cli-{{ duckdb_platform }}.zip'
+duckdb_name: duckdb_cli-{{ duckdb_ver }}-{{ duckdb_platform }}
+duckdb_tmp_archive: '{{ duckdb_tmp_dir | default("/tmp") }}/{{ duckdb_name }}.zip'
+duckdb_install_dir: '{{ duckdb_parent_install_dir }}/{{ duckdb_name }}'
+duckdb_install_exe: '{{ duckdb_install_dir }}/duckdb'
+duckdb_link: '{{ duckdb_parent_install_dir }}/bin/duckdb'
