@@ -3,7 +3,7 @@ andrewrothstein.duckdb
 
 ![Build Status](https://github.com/andrewrothstein/ansible-duckdb/actions/workflows/build.yml/badge.svg)
 
-A brief description of the andrewrothstein.duckdb goes here.
+Installs the [duckdb](https://duckdb.org/) cli
 
 Requirements
 ------------
