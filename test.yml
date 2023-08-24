@@ -7,4 +7,4 @@
       register: duckdb_test_output
     - name: duckdb --version
       debug:
-        msg:' {{ duckdb_test_output.stdout }}'
+        msg: '{{ duckdb_test_output.stdout }}'
