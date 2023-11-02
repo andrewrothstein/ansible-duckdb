@@ -28,11 +28,8 @@ dlver () {
     printf "  '%s':\n" $ver
     dl $ver linux aarch64
     dl $ver linux amd64
-    dl $ver linux i386
-    dl $ver linux rpi
     dl $ver osx universal
     dl $ver windows amd64
-    dl $ver windows i386
 }
 
-dlver ${1:-0.8.1}
+dlver ${1:-0.9.1}
