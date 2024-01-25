@@ -1,8 +1,9 @@
 ---
-- include_role:
+- name: Installing andrewrothstein.unarchivedeps
+  ansible.builtin.include_role:
     name: andrewrothstein.unarchivedeps
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -11,30 +12,31 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: check for install at {{ duckdb_install_exe }}
+- name: Check for install at {{ duckdb_install_exe }}
   become: true
-  stat:
+  ansible.builtin.stat:
     path: '{{ duckdb_install_exe }}'
   changed_when: false
   register: duckdb_binary
-- when: not duckdb_binary.stat.exists
+- name: Downloading and installing
+  when: not duckdb_binary.stat.exists
   block:
-    - name: downloading {{ duckdb_url }} to {{ duckdb_tmp_archive }}
+    - name: Downloading {{ duckdb_url }} to {{ duckdb_tmp_archive }}
       become: true
       become_user: root
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ duckdb_url }}'
         dest: '{{ duckdb_tmp_archive }}'
         checksum: '{{ duckdb_checksum }}'
-        mode: 0644
-    - name: mkdir {{ duckdb_install_dir }}
+        mode: '644'
+    - name: Mkdir {{ duckdb_install_dir }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ duckdb_install_dir }}'
-        mode: 0755
+        mode: '755'
         state: directory
-    - name: unarchiving {{ duckdb_tmp_archive }}
+    - name: Unarchiving {{ duckdb_tmp_archive }}
       become: true
       become_user: root
       unarchive:
@@ -43,16 +45,16 @@
         dest: '{{ duckdb_install_dir }}'
         creates: '{{ duckdb_install_exe }}'
   always:
-    - name: rm {{ duckdb_tmp_archive }}
+    - name: Rm {{ duckdb_tmp_archive }}
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ duckdb_tmp_archive }}'
         state: absent
-- name: linking {{ duckdb_link }} to {{ duckdb_install_exe }}
+- name: Linking {{ duckdb_link }} to {{ duckdb_install_exe }}
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     dest: '{{ duckdb_link }}'
     src: '{{ duckdb_install_exe }}'
     state: link

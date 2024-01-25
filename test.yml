@@ -1,10 +1,14 @@
 ---
-- hosts: all
-  roles:
-    - role: '{{ playbook_dir }}'
+- name: Testing andrewrothstein.duckdb
+  hosts: all
   tasks:
-    - command: /usr/local/bin/duckdb --version
+    - name: Installing andrewrothstein.duckdb
+      ansible.builtin.include_role:
+        name: '{{ playbook_dir }}'
+    - name: Executing 'duckdb --version'
+      ansible.builtin.command: /usr/local/bin/duckdb --version
+      changed_when: false
       register: duckdb_test_output
-    - name: duckdb --version
-      debug:
+    - name: Output from 'duckdb --version'
+      ansible.builtin.debug:
         msg: '{{ duckdb_test_output.stdout }}'
