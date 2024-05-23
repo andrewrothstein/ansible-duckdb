@@ -1,7 +1,4 @@
 ---
-- name: Installing andrewrothstein.unarchivedeps
-  ansible.builtin.include_role:
-    name: andrewrothstein.unarchivedeps
 - name: Resolve platform specific vars
   ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
@@ -36,10 +33,13 @@
         path: '{{ duckdb_install_dir }}'
         mode: '755'
         state: directory
+    - name: Installing andrewrothstein.unarchivedeps
+      ansible.builtin.include_role:
+        name: andrewrothstein.unarchivedeps
     - name: Unarchiving {{ duckdb_tmp_archive }}
       become: true
       become_user: root
-      unarchive:
+      ansible.builtin.unarchive:
         remote_src: true
         src: '{{ duckdb_tmp_archive }}'
         dest: '{{ duckdb_install_dir }}'
