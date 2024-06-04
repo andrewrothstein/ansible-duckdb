@@ -32,4 +32,4 @@ dlver () {
     dl $ver windows amd64
 }
 
-dlver ${1:-0.10.3}
+dlver ${1:-1.0.0}
