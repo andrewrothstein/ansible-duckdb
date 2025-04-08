@@ -1,6 +1,6 @@
 ---
 # defaults file for duckdb
-duckdb_ver: 1.2.1
+duckdb_ver: 1.2.2
 duckdb_os_map:
   Linux: linux
   Darwin: osx
@@ -144,3 +144,12 @@ duckdb_checksums:
     osx-universal: sha256:13e2ce4cb0d4c868f8ac0dd2ab35f1b788b80d08326fc92b62d1badb3729da22
     # https://github.com/duckdb/duckdb/releases/download/v1.2.1/duckdb_cli-windows-amd64.zip
     windows-amd64: sha256:b0a7b85409f2aecf8535cb7daa8a29d9325b62850e5a24752a7146c65e3a32eb
+  '1.2.2':
+    # https://github.com/duckdb/duckdb/releases/download/v1.2.2/duckdb_cli-linux-aarch64.zip
+    linux-aarch64: sha256:04b394d4e2fa90fc135b3417a3fbadbb765de7cec01a80f179bf854f8ac702a3
+    # https://github.com/duckdb/duckdb/releases/download/v1.2.2/duckdb_cli-linux-amd64.zip
+    linux-amd64: sha256:fc153822f59283e0a9374168cce5bc85a9985e699d9857842597882062fd2cb5
+    # https://github.com/duckdb/duckdb/releases/download/v1.2.2/duckdb_cli-osx-universal.zip
+    osx-universal: sha256:ccc67aedbc8047454fb77b22f841c921e7ad50510ba154019c06f3d4ef49b400
+    # https://github.com/duckdb/duckdb/releases/download/v1.2.2/duckdb_cli-windows-amd64.zip
+    windows-amd64: sha256:9d35fba121f011b06d5f256c2ac351ae5c2468de8156524c75082b2e4a810ffe
