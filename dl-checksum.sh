@@ -26,10 +26,10 @@ dl()
 dlver () {
     local ver=$1
     printf "  '%s':\n" $ver
-    dl $ver linux aarch64
+    dl $ver linux arm64
     dl $ver linux amd64
     dl $ver osx universal
     dl $ver windows amd64
 }
 
-dlver ${1:-1.2.2}
+dlver ${1:-1.4.2}
