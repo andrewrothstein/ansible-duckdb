@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 set -e
-DIR=~/Downloads
+DIR=$(mktemp -d)
+trap 'rm -rf "$DIR"' EXIT
 MIRROR=https://github.com/duckdb/duckdb/releases/download
 
 dl()
@@ -16,13 +17,16 @@ dl()
     local url="${MIRROR}/v${ver}/duckdb${sep}cli-${platform}.${archive_type}"
     local lfile="${DIR}/duckdb_cli-${ver}-${platform}.${archive_type}"
 
-    if [ ! -e $lfile ];
+    curl -fsSL --proto '=https' --tlsv1.2 -o "$lfile" "$url"
+    local sum
+    sum=$(sha256sum "$lfile" | awk '{print $1}')
+    if ! printf '%s' "$sum" | grep -Eq '^[0-9a-f]{64}$'
     then
-        curl -sSLf -o $lfile $url
+        echo "bad or missing checksum for $url: '$sum'" >&2
+        exit 1
     fi
-
-    printf "    # %s\n" $url
-    printf "    %s: sha256:%s\n" $platform $(sha256sum $lfile | awk '{print $1}')
+    printf "    # %s\n" "$url"
+    printf "    %s: sha256:%s\n" "$platform" "$sum"
 }
 
 dlver () {
@@ -41,4 +45,4 @@ dlver () {
     dl $ver windows amd64 $archive_type $sep
 }
 
-dlver ${1:-2.0.0}
+dlver ${1:-2.0.1}
